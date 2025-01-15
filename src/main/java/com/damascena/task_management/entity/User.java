@@ -3,7 +3,6 @@ package com.damascena.task_management.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class User {
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
 
-    @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<>();
 
     @PrePersist

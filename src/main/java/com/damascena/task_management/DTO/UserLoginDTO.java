@@ -5,10 +5,9 @@ import lombok.Data;
 
 @Data
 public class UserLoginDTO {
-
-    @NotBlank
+    @NotBlank(message = "Username cannot be blank")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Password cannot be blank")
     private String password;
 }

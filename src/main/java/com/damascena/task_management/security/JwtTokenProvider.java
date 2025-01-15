@@ -18,7 +18,7 @@ public class JwtTokenProvider {
     private String jwtSecret;
 
     @Value("${jwt.expiration}")
-    private Long jwtExpirationInMs;
+    private long jwtExpirationInMs;
 
     private Key key;
 
@@ -30,12 +30,12 @@ public class JwtTokenProvider {
     public String generateToken(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Date now = new Date();
-        Date expireDate = new Date(now.getTime() + jwtExpirationInMs);
+        Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(now)
-                .setExpiration(expireDate)
+                .setExpiration(expiryDate)
                 .signWith(key)
                 .compact();
     }
@@ -58,5 +58,4 @@ public class JwtTokenProvider {
             return false;
         }
     }
-
 }

@@ -2,8 +2,8 @@ package com.damascena.task_management.DTO;
 
 import com.damascena.task_management.enums.TaskPriority;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import lombok.NonNull;
 
 import java.time.ZonedDateTime;
 
@@ -11,9 +11,11 @@ import java.time.ZonedDateTime;
 public class CreateTaskDTO {
     @NotBlank
     private String title;
+
     private String description;
 
-    @NonNull
+    @NotNull
     private TaskPriority priority;
+
     private ZonedDateTime dueDate;
 }

@@ -23,7 +23,6 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;
@@ -34,9 +33,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserLoginDTO loginDTO) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginDTO.getUsername(), loginDTO.getPassword())
+                new UsernamePasswordAuthenticationToken(
+                        userLoginDTO.getUsername(),
+                        userLoginDTO.getPassword()
+                )
         );
 
         String token = tokenProvider.generateToken(authentication);
