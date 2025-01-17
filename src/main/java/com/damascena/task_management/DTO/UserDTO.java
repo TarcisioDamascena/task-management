@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.time.ZonedDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Data
@@ -19,5 +21,6 @@ public class UserDTO {
     private String email;
 
     @Schema(description = "Account creation timestamp")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private ZonedDateTime createdAt;
 }

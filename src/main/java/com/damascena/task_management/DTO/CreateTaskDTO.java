@@ -1,6 +1,7 @@
 package com.damascena.task_management.DTO;
 
 import com.damascena.task_management.enums.TaskPriority;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
@@ -24,5 +25,6 @@ public class CreateTaskDTO {
     private TaskPriority priority;
 
     @Schema(description = "Task due date")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private ZonedDateTime dueDate;
 }
