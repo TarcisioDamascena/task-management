@@ -25,6 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Tasks", description = "Task management endpoints")
 @SecurityRequirement(name = "bearerAuth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TaskController {
     private final TaskService taskService;
 

@@ -16,5 +16,18 @@ services:
       timeout: 5s
       retries: 5
 
+  spring-api:
+    build: .
+    container_name: task-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/taskdb
+      - SPRING_DATASOURCE_USERNAME=taskuser
+      - SPRING_DATASOURCE_PASSWORD=taskpass
+
 volumes:
   postgres_data:
