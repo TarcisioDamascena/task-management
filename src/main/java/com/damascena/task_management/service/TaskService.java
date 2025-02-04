@@ -6,6 +6,7 @@ import com.damascena.task_management.DTO.TaskDTO;
 import com.damascena.task_management.DTO.UpdateTaskDTO;
 import com.damascena.task_management.entity.Task;
 import com.damascena.task_management.entity.User;
+import com.damascena.task_management.enums.TaskPriority;
 import com.damascena.task_management.enums.TaskStatus;
 import com.damascena.task_management.exceptions.ResourceNotFoundException;
 import com.damascena.task_management.exceptions.UnauthorizedAccessException;
@@ -16,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.chrono.ChronoZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,5 +111,30 @@ public class TaskService {
         dto.setCreatedAt(task.getCreatedAt());
         dto.setUpdatedAt(task.getUpdatedAt());
         return dto;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TaskDTO> filterTasks(TaskStatus status, TaskPriority priority, LocalDate dueDateBefore) {
+        User user = getCurrentUser();
+        List<Task> filteredTasks = findFilteredTasks(user.getId(), status, priority, dueDateBefore);
+
+        return filteredTasks.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private List<Task> findFilteredTasks(Long userId, TaskStatus status, TaskPriority priority, LocalDate dueDateBefore) {
+        List<Task> userTasks = getCurrentUserTasks()
+                .stream()
+                .map(taskDTO -> taskRepository.findById(taskDTO.getId()).orElseThrow())
+                .toList();
+
+        return userTasks.stream()
+                .filter(task ->
+                        (status == null || task.getStatus() == status) &&
+                                (priority == null || task.getPriority() == priority) &&
+                                (dueDateBefore == null || task.getDueDate().isBefore(ChronoZonedDateTime.from(dueDateBefore)))
+                )
+                .collect(Collectors.toList());
     }
 }
