@@ -4,14 +4,10 @@ import com.damascena.task_management.entity.Task;
 import com.damascena.task_management.enums.TaskPriority;
 import com.damascena.task_management.enums.TaskStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.time.LocalDate;
 import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByUserIdOrderByCreatedAtDesc(Long userId);
     List<Task> findByUserIdAndStatus(Long userId, TaskStatus status);
     List<Task> findByUserIdAndPriority(Long userId, TaskPriority priority);
-    List<Task> findByUserIdAndDueDateBefore(Long userId, LocalDate dueDate);
-    List<Task> findByUserIdAndStatusAndPriority(Long userId, TaskStatus status, TaskPriority priority);
 }

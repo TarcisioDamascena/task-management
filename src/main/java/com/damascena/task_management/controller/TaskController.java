@@ -3,8 +3,6 @@ package com.damascena.task_management.controller;
 import com.damascena.task_management.DTO.CreateTaskDTO;
 import com.damascena.task_management.DTO.TaskDTO;
 import com.damascena.task_management.DTO.UpdateTaskDTO;
-import com.damascena.task_management.enums.TaskPriority;
-import com.damascena.task_management.enums.TaskStatus;
 import com.damascena.task_management.exceptions.ErrorResponse;
 import com.damascena.task_management.service.TaskService;
 
@@ -17,11 +15,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -147,19 +143,5 @@ public class TaskController {
     public ResponseEntity<Void> deleteTask(@PathVariable Long taskId) {
         taskService.deleteTask(taskId);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/filter")
-    @Operation(summary = "Filter tasks", description = "Filter tasks based on status, priority, and due date")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Tasks filtered successfully"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized")
-    })
-    public ResponseEntity<List<TaskDTO>> filterTasks(
-            @RequestParam(required = false) TaskStatus status,
-            @RequestParam(required = false) TaskPriority priority,
-            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dueDateBefore
-    ){
-        return ResponseEntity.ok(taskService.filterTasks(status, priority, dueDateBefore));
     }
 }
