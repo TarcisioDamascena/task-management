@@ -27,17 +27,25 @@ public class TaskService {
 
     @Transactional
     public TaskDTO createTask(CreateTaskDTO createTaskDTO) {
+        System.out.println("Received CreateTaskDTO: " + createTaskDTO);
+        System.out.println("Status in DTO: " + createTaskDTO.getStatus());
+
         User user = getCurrentUser();
 
         Task task = new Task();
+
+        System.out.println("Intial task status (before setting): " + task.getStatus());
         task.setTitle(createTaskDTO.getTitle());
         task.setDescription(createTaskDTO.getDescription());
-        task.setStatus(TaskStatus.TODO);
+        task.setStatus(createTaskDTO.getStatus());
+        System.out.println("Task status after setting: " + task.getStatus());
+
         task.setPriority(createTaskDTO.getPriority());
         task.setDueDate(createTaskDTO.getDueDate());
         task.setUser(user);
 
         Task savedTask = taskRepository.save(task);
+        System.out.println("Status in saved task: " + savedTask.getStatus());
         return convertToDTO(savedTask);
     }
 
