@@ -23,7 +23,7 @@ O frontend foi desenvolvido utilizando Angular e está disponível em outro repo
 
 ### Requisitos
 - Docker
-- JDK 21+
+- JDK 21
 
 ### Passos para Executar
 1. Clone o repositório:
@@ -48,4 +48,7 @@ O frontend foi desenvolvido utilizando Angular e está disponível em outro repo
    ```
 
 ## Endpoints da API
+
+![image](https://github.com/user-attachments/assets/24757422-99f7-44b0-901c-5c43180e0d6c)
+
 Para mais detalhes sobre os endpoints, acesse a documentação gerada pelo Swagger no link mencionado acima.
