@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
         version = "1.0",
         description = "REST API for managing tasks with JWT authentication",
         contact = @Contact(
-            name = "Your Name",
-            email = "your.email@example.com"
+            name = "Tarcisio Damascena",
+            email = "damascenatarcisio@gmail.com"
         )
     )
 )
